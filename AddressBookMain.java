@@ -52,6 +52,25 @@ public class AddressBookMain {
 			this.email=email;
 		}
 		
+		//Function to delete a contact-UC4
+		public static void deleteContact(int del,AddressBookMain[] person)
+		{
+			int i;
+			if(del==n-1)
+			{
+				person[del]=null;
+			}
+			else
+			{
+				for(i=del;i<n-1;i++)
+				{
+					person[i] = person[i+1];
+				}
+				person[i]=null;   //to delete the object
+			}
+			
+		}
+		
 
 	public static void main(String[] args) {
 		//Display Message. 
@@ -93,7 +112,7 @@ public class AddressBookMain {
 				phNumber = sc.nextLine();
 				System.out.println("Enter your Email ID: ");
 				email = sc.nextLine();
-				person[n]=new AddressBookMain(firstName,lastName,address,city,state,pin,phNumber,email);	//object creation
+				person[n]=new AddressBookMain(firstName,lastName,address,city,state,pin,phNumber,email);//object creation
 				n++;
 				System.out.println("Details Added. \n");
 				//person[n].Display();		
@@ -126,15 +145,28 @@ public class AddressBookMain {
 						phNumber = sc.nextLine();
 						System.out.println("Enter your Email ID: ");
 						email = sc.nextLine();
-						person[edit1].editContact(firstName,lastName,address,city,state,pin,phNumber,email);  //calling Edit Contact
+						person[edit1].editContact(firstName,lastName,address,city,state,pin,phNumber,email);//calling Edit Contact
 					}// end of if
 				}// end of for
 				break;
 			}// end of case 2
 			case 3:{
 				//Deleting a contact UC4
+				System.out.println("Enter the person's First Name: ");
+				String deleteFirstName = sc.nextLine();
+				System.out.println("Enter the person's Last Name: ");
+				String deleteLastName = sc.nextLine();
+				for (int j=0;j<n;j++)
+				{
+					if(person[j].firstName.equals(deleteFirstName) && person[j].lastName.equals(deleteLastName))//to delete a contact
+					{
+						int delete1=j;
+						deleteContact(delete1,person);
+						n=n-1;
+					}
+				}
 				break;
-			}
+			}//end of case 3
 			case 4: {
 				System.out.println("Contacts in Address Book: ");
 				for(int j=0; j<n ;j++)
@@ -144,12 +176,15 @@ public class AddressBookMain {
 				}
 				break;
 			} //end of case 4
-			case 5: break;
+			case 5: {
+				System.out.println("Exit.");
+				break;
+			} // end of case 5
 			default: 
 				System.out.println("Enter Valid Option");
 			}// end of switch
 			
-		}while(k!=4);
+		}while(k!=5);
 		sc.close();
 	}
 
