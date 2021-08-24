@@ -1,10 +1,12 @@
 package bridgelabzPractice;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AddressBookMain {
-	
-	public static  int n=0;
+
+	//UC5 - Using Collection Class to maintain multiple contact persons in Address Book
+	public static ArrayList<AddressBookMain> person=new ArrayList<>();//collection class array list is used to store different contacts in address book
 	
 	//Class members - UC1
 		private String firstName;
@@ -53,21 +55,9 @@ public class AddressBookMain {
 		}
 		
 		//Function to delete a contact-UC4
-		public static void deleteContact(int del,AddressBookMain[] person)
+		public static void deleteContact(AddressBookMain deletionObject)
 		{
-			int i;
-			if(del==n-1)
-			{
-				person[del]=null;
-			}
-			else
-			{
-				for(i=del;i<n-1;i++)
-				{
-					person[i] = person[i+1];
-				}
-				person[i]=null;   //to delete the object
-			}
+			person.remove(deletionObject); //using built in method to remove objects
 			
 		}
 		
@@ -77,7 +67,9 @@ public class AddressBookMain {
 		System.out.println("Welcome to Address Book Program");
 		
 		Scanner sc = new Scanner(System.in);
-		AddressBookMain[] person = new AddressBookMain[20]; //Multiple contacts can be created
+		/*
+		 * @params firstName,lastName,address,city,state,pin,phNumber and email are local variables
+		 */
 		String firstName;
 		String lastName;
 		String address ;
@@ -112,10 +104,8 @@ public class AddressBookMain {
 				phNumber = sc.nextLine();
 				System.out.println("Enter your Email ID: ");
 				email = sc.nextLine();
-				person[n]=new AddressBookMain(firstName,lastName,address,city,state,pin,phNumber,email);//object creation
-				n++;
-				System.out.println("Details Added. \n");
-				//person[n].Display();		
+				person.add(new AddressBookMain(firstName,lastName,address,city,state,pin,phNumber,email));//object creation
+				System.out.println("Details Added. \n");	
 				break;
 			} //end of case 1
 			case 2:{
@@ -124,9 +114,10 @@ public class AddressBookMain {
 				String editFirstName = sc.nextLine();
 				System.out.println("Enter the person's Last Name: ");
 				String editLastName = sc.nextLine();
-				for (int j=0;j<n;j++)
+				for (int j=0;j<person.size();j++)
 				{
-					if(person[j].firstName.equals(editFirstName) && person[j].lastName.equals(editLastName))
+					AddressBookMain contact = person.get(j);
+					if(contact.firstName.equals(editFirstName) && contact.lastName.equals(editLastName))
 					{
 						int edit1=j;
 						System.out.println("Enter your first name: ");
@@ -145,7 +136,7 @@ public class AddressBookMain {
 						phNumber = sc.nextLine();
 						System.out.println("Enter your Email ID: ");
 						email = sc.nextLine();
-						person[edit1].editContact(firstName,lastName,address,city,state,pin,phNumber,email);//calling Edit Contact
+						contact.editContact(firstName,lastName,address,city,state,pin,phNumber,email);//calling Edit Contact
 					}// end of if
 				}// end of for
 				break;
@@ -156,23 +147,24 @@ public class AddressBookMain {
 				String deleteFirstName = sc.nextLine();
 				System.out.println("Enter the person's Last Name: ");
 				String deleteLastName = sc.nextLine();
-				for (int j=0;j<n;j++)
+				for (int j=0;j<person.size();j++)
 				{
-					if(person[j].firstName.equals(deleteFirstName) && person[j].lastName.equals(deleteLastName))//to delete a contact
+					AddressBookMain contact = person.get(j);
+					if(contact.firstName.equals(deleteFirstName) && contact.lastName.equals(deleteLastName))//to delete a contact
 					{
-						int delete1=j;
-						deleteContact(delete1,person);
-						n=n-1;
+						deleteContact(contact);
+						System.out.println("Contact Deleted.");
 					}
 				}
 				break;
 			}//end of case 3
 			case 4: {
 				System.out.println("Contacts in Address Book: ");
-				for(int j=0; j<n ;j++)
+				for(int j=0; j<person.size() ;j++)
 				{
+					AddressBookMain contact = person.get(j);
 					System.out.println("Contact details of person: "+ (j+1));
-					person[j].Display();
+					contact.Display();
 				}
 				break;
 			} //end of case 4
