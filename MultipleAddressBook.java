@@ -43,52 +43,78 @@ public class MultipleAddressBook {
 				String y= "AddressBook1" ;
 				multipleAddressBook.put(y, person);	//put the first addressbook into dictionary
 				
-				while(choice!=8) //it repeats till the user wants to end
+				while(choice!=10) //it repeats till the user wants to end
 				{
-					System.out.println("Enter your choice\n 1) Create New Address Book\n 2) Add Contact \n 3) Edit existing Contact\n 4) Delete contact\n 5) Display Address Book\n 6) Create Another AddressBook\n 7) Search a person based on City/State\n 8) Exit"); //user selection
+					System.out.println("Enter your choice:\n 1) Create New Address Book\n 2) Add Contact \n 3) Edit existing Contact\n "
+							+ "4) Delete contact\n 5) Display Address Book\n 6) Create Another AddressBook\n 7) Search a person based on City/State\n "
+							+ "8) View person by City\n 9) View person by State\n 10) Exit"); //user selection
 					choice=sc.nextInt();
-					if(choice==1)  //to create a new address book
+					switch(choice)
 					{
-						System.out.println("Enter the name of the Address Book:");
-						n=sc.next();
-						AddressBookMain addressBook1 = new AddressBookMain();  // a new addressbook object is created 
-						multipleAddressBook.put(n, addressBook1);
-							
-					}
-					else if(choice==5)  
-					{
-						System.out.println("Enter the name of the Address Book: ");
-						n = sc.next();
-						if(multipleAddressBook.containsKey(n))
+					case 1:  //to create a new address book
 						{
-						    System.out.println("Address Book already exists.");
-						    n=sc.next();
+							System.out.println("Enter the name of the Address Book:");
+							n=sc.next();
+							AddressBookMain addressBook1 = new AddressBookMain();  // a new addressbook object is created 
+							multipleAddressBook.put(n, addressBook1);
+							break;	
 						}
-						AddressBookMain addressBook2 = new AddressBookMain();  
-						multipleAddressBook.put(n, addressBook2);							
+					case 2:
+					case 3:
+					case 4:
+					case 5:
+						{
+							System.out.println("Enter the name of the AddressBook where you want to perform the operations: ");
+							n=sc.next();
+							choiceOfUser(choice,multipleAddressBook.get(n));   //to perform required operation on desired addressbook
+							break;
+						}
+					case 6: 
+						{
+							System.out.println("Enter the name of the Address Book: ");
+							n = sc.next();
+							if(multipleAddressBook.containsKey(n))
+							{
+							    System.out.println("Address Book already exists.");
+							    n=sc.next();
+							}
+							AddressBookMain addressBook2 = new AddressBookMain();  
+							multipleAddressBook.put(n, addressBook2);
+							break;
+						}
+					case 7:
+						{
+						    System.out.println("Enter the City/State: ");
+						    String place=sc.next();
+						    System.out.println("Person's whose State/City is: "+place);
+						    for(Map.Entry<String, AddressBookMain> entry : multipleAddressBook.entrySet())
+						    {
+						        AddressBookMain addressbook3 = entry.getValue();
+						        addressbook3.searchContact(place);
+						    }
+						    break;
+						}
+					case 8: {
+						 for(Map.Entry<String, AddressBookMain> entry : multipleAddressBook.entrySet())
+			                {
+			                    AddressBookMain addressbook4 = entry.getValue();
+			                    System.out.println("Addressbook:"+entry.getKey());
+			                    addressbook4.viewPersonByCity();
+			                }
+						 break;
 					}
-					else if(choice==7)
-					{
-					    System.out.println("Enter the City/State: ");
-					    String place=sc.next();
-					    System.out.println("Person's whose State/City is: "+place);
-					    for(Map.Entry<String, AddressBookMain> entry : multipleAddressBook.entrySet())
-					    {
-					        AddressBookMain addressbook3 = entry.getValue();
-					        addressbook3.searchContact(place);
-					    }
-					      
+					case 9: {
+						for(Map.Entry<String, AddressBookMain> entry : multipleAddressBook.entrySet())
+		                {
+		                    AddressBookMain addressbook5 = entry.getValue();
+		                    System.out.println("Addressbook:"+entry.getKey());
+		                    addressbook5.viewPersonByState();
+		                }
+						break;
 					}
-					else
-					{
-						System.out.println("Enter the name of the AddressBook where you want to perform the operations: ");
-						n=sc.next();
-						choiceOfUser(choice,multipleAddressBook.get(n));   //to perform required operation on desired addressbook
-					}				
+					case 10: System.exit(0);
+					default: System.out.println("Enter a Valid Option.");
+					}//end of switch
 				}// end of while
-				if(choice==8)
-				{
-					System.exit(0);
-				}
 		}
 }

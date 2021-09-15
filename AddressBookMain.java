@@ -1,6 +1,9 @@
 package bridgelabzPractice;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AddressBookMain {
@@ -195,7 +198,58 @@ public class AddressBookMain {
 		            {
 		                contact.displayAddressBook();  
 		            }
-		        }
-		        
+		        }		        
 		 }
+		
+		//Method to view a particular contact based on city
+	    public void viewPersonByCity()
+	    {
+	        Map<String,List<String>> cityMap = new HashMap<> ();
+	        for (int j=0;j<person1.size();j++)
+	        {   
+	            AddressBookMain object=person1.get(j);
+	            if(cityMap.containsKey(object.city))
+	            {
+	                List<String> temp= cityMap.get(object.city);
+	                temp.add(object.firstName);
+	                cityMap.put(object.city, temp);
+	            }
+	            else
+	            {
+	                List<String> temp=new ArrayList<>();
+	                temp.add(object.firstName);
+	                cityMap.put(object.city, temp);
+	            }
+	        }
+	        for(Map.Entry m: cityMap.entrySet()) 
+	        {
+	           System.out.println(m.getKey()+" : "+m.getValue());        
+	        }
+	    }
+	    
+		// Method to view a particular contact based on state
+	    public void viewPersonByState() 
+	    {
+	        Map<String,List<String>> stateMap = new HashMap<> ();
+	        for (int j=0;j<person1.size();j++)
+	        {   
+	            AddressBookMain object=person1.get(j);
+	            if(stateMap.containsKey(object.state))
+	            {
+	                List<String> temp= stateMap.get(object.state);
+	                temp.add(object.firstName);
+	                stateMap.put(object.state, temp);
+	            }
+	            else
+	            {
+	                List<String> temp=new ArrayList<>();
+	                temp.add(object.firstName);
+	                stateMap.put(object.state, temp);
+	            }
+	        }
+	        for(Map.Entry m: stateMap.entrySet()) 
+	        {
+	          System.out.println(m.getKey()+" : "+m.getValue());          
+	        }
+	   } 
 }
