@@ -1,5 +1,7 @@
 package bridgelabzPractice;
 import java.util.Hashtable;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 public class MultipleAddressBook {
@@ -35,16 +37,16 @@ public class MultipleAddressBook {
 			public static void main(String[] args) {
 
 				Hashtable<String,AddressBookMain>  multipleAddressBook = new Hashtable<>();  //dictionary for mapping different address book with key 
-				AddressBookMain person = new AddressBookMain();					//first addressbook
-				
+				AddressBookMain person = new AddressBookMain();	//first addressbook				
+				int choice = 0;
 				String n="";
 				String y= "AddressBook1" ;
 				multipleAddressBook.put(y, person);	//put the first addressbook into dictionary
 				
-				while(k!=7) //it repeats till the user wants to end
+				while(choice!=8) //it repeats till the user wants to end
 				{
-					System.out.println("Enter your choice\n 1) Create New Address Book\n 2) Add Contact \n 3) Edit existing Contact\n 4) Delete contact\n 5) Display Address Book\n 6) Create Another AddressBook 7) Exit"); //user selection
-					int choice=sc.nextInt();
+					System.out.println("Enter your choice\n 1) Create New Address Book\n 2) Add Contact \n 3) Edit existing Contact\n 4) Delete contact\n 5) Display Address Book\n 6) Create Another AddressBook\n 7) Search a person based on City/State\n 8) Exit"); //user selection
+					choice=sc.nextInt();
 					if(choice==1)  //to create a new address book
 					{
 						System.out.println("Enter the name of the Address Book:");
@@ -53,7 +55,7 @@ public class MultipleAddressBook {
 						multipleAddressBook.put(n, addressBook1);
 							
 					}
-					if(choice==5)  
+					else if(choice==5)  
 					{
 						System.out.println("Enter the name of the Address Book: ");
 						n = sc.next();
@@ -65,6 +67,18 @@ public class MultipleAddressBook {
 						AddressBookMain addressBook2 = new AddressBookMain();  
 						multipleAddressBook.put(n, addressBook2);							
 					}
+					else if(choice==7)
+					{
+					    System.out.println("Enter the City/State: ");
+					    String place=sc.next();
+					    System.out.println("Person's whose State/City is: "+place);
+					    for(Map.Entry<String, AddressBookMain> entry : multipleAddressBook.entrySet())
+					    {
+					        AddressBookMain addressbook3 = entry.getValue();
+					        addressbook3.searchContact(place);
+					    }
+					      
+					}
 					else
 					{
 						System.out.println("Enter the name of the AddressBook where you want to perform the operations: ");
@@ -72,5 +86,9 @@ public class MultipleAddressBook {
 						choiceOfUser(choice,multipleAddressBook.get(n));   //to perform required operation on desired addressbook
 					}				
 				}// end of while
+				if(choice==8)
+				{
+					System.exit(0);
+				}
 		}
 }

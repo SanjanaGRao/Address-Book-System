@@ -86,42 +86,42 @@ public class AddressBookMain {
 	                {
 	                case 1: {
 	                	System.out.println("Enter your first name: ");
-	                	contact.firstName = sc.nextLine();
+	                	contact.firstName = sc.next();
 	                	break;
 	                	}
 	                case 2: {
 	                	System.out.println("Enter your last name: ");
-						contact.lastName = sc.nextLine();
+						contact.lastName = sc.next();
 						break;
 	                }
 	                case 3: {
 	                	System.out.println("Enter your Address: ");
-						contact.address = sc.nextLine();
+						contact.address = sc.next();
 						break;
 	                }
 	                case 4: {
 	                	System.out.println("Enter your city: ");
-						contact.city = sc.nextLine();
+						contact.city = sc.next();
 						break;
 	                }
 	                case 5: {
 	                	System.out.println("Enter your state: ");
-						contact.state = sc.nextLine();
+						contact.state = sc.next();
 						break;
 	                }
 	                case 6: {
 	                	System.out.println("Enter your city PIN Code: ");
-						contact.pin = sc.nextLine();
+						contact.pin = sc.next();
 						break;
 	                }
 	                case 7: {
 	                	System.out.println("Enter your contact number: ");
-						contact.phNumber = sc.nextLine();
+						contact.phNumber = sc.next();
 						break;
 	                }
 	                case 8: {	
 						System.out.println("Enter your Email ID: ");
-						email = sc.nextLine();
+						email = sc.next();
 						break;
 	                }
 	                default: System.out.println("Invalid.");
@@ -184,5 +184,18 @@ public class AddressBookMain {
 	        }
 		    return false;
 		}
-
+		
+		//Method to search the contact based on person's city or state
+		public void searchContact(String place) 
+		 {
+		        for (int j=0;j<person1.size();j++)
+		        {   
+		            AddressBookMain contact = person1.get(j);
+		            if(contact.city.equals(place)||contact.state.equals(place))
+		            {
+		                contact.displayAddressBook();  
+		            }
+		        }
+		        
+		 }
 }
