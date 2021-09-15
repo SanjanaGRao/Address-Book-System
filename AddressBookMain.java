@@ -202,7 +202,8 @@ public class AddressBookMain {
 		 }
 		
 		//Method to view a particular contact based on city
-	    public void viewPersonByCity()
+	    @SuppressWarnings({ "unchecked", "rawtypes" })
+		public void viewPersonByCity()
 	    {
 	        Map<String,List<String>> cityMap = new HashMap<> ();
 	        for (int j=0;j<person1.size();j++)
@@ -223,12 +224,14 @@ public class AddressBookMain {
 	        }
 	        for(Map.Entry m: cityMap.entrySet()) 
 	        {
-	           System.out.println(m.getKey()+" : "+m.getValue());        
+	           System.out.println(m.getKey()+" : "+m.getValue());  
+	           System.out.println("There are "+((List<String>) m.getValue()).size()+" people in City "+m.getKey());
 	        }
 	    }
 	    
 		// Method to view a particular contact based on state
-	    public void viewPersonByState() 
+	    @SuppressWarnings({ "unchecked", "rawtypes" }) //added this because it was a warning suggestion
+		public void viewPersonByState() 
 	    {
 	        Map<String,List<String>> stateMap = new HashMap<> ();
 	        for (int j=0;j<person1.size();j++)
@@ -249,7 +252,8 @@ public class AddressBookMain {
 	        }
 	        for(Map.Entry m: stateMap.entrySet()) 
 	        {
-	          System.out.println(m.getKey()+" : "+m.getValue());          
+	          System.out.println(m.getKey()+" : "+m.getValue()); 
+	          System.out.println("There are "+((List<String>) m.getValue()).size()+" people in state "+m.getKey());
 	        }
 	   } 
 }
