@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-
-public class AddressBookMain {
+import java.util.stream.Collectors;
+import java.util.*
+;public class AddressBookMain {
 
 	//UC5 - Using Collection Class to maintain multiple contact persons in Address Book
 	public static ArrayList<AddressBookMain> person1 = new ArrayList<>();//collection class array list is used to store different contacts in address book
@@ -123,8 +124,8 @@ public class AddressBookMain {
 						break;
 	                }
 	                case 8: {	
-						System.out.println("Enter your Email ID: ");
-						email = sc.next();
+	                	System.out.println("Enter your contact number: ");
+						contact.phNumber = sc.next();
 						break;
 	                }
 	                default: System.out.println("Invalid.");
@@ -256,4 +257,31 @@ public class AddressBookMain {
 	          System.out.println("There are "+((List<String>) m.getValue()).size()+" people in state "+m.getKey());
 	        }
 	   } 
+	    /*
+	     * method to sort the list based on name
+	     */
+	    public void sortByName() {
+	        Map<String,AddressBookMain> map = new HashMap<String,AddressBookMain>();
+	        for (int j=0;j<person1.size();j++)
+	        {
+	            AddressBookMain object=person1.get(j);
+	            map.put(object.firstName,object);
+	        }
+	        Map<String, AddressBookMain> sortedMap = map.entrySet().stream()
+	                .sorted(Map.Entry.comparingByKey())
+	                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+	                        (oldValue, newValue) -> oldValue,LinkedHashMap::new));	        
+	        for (Map.Entry<String, AddressBookMain> entry : sortedMap.entrySet()) 
+	        {
+	            System.out.println("First Name:"+entry.getValue().firstName);
+	            System.out.println("Last Name:"+entry.getValue().lastName);
+	            System.out.println("Address:"+entry.getValue().address);
+	            System.out.println("City:"+entry.getValue().city);
+	            System.out.println("State:"+entry.getValue().state);
+	            System.out.println("Zip:"+entry.getValue().pin);
+	            System.out.println("Phone number:"+entry.getValue().phNumber);
+	            System.out.println("E-mail:"+entry.getValue().email);
+	            System.out.println("--------------------------------------------");
+	        }
+	    }
 }
