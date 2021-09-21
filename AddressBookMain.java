@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*
 ;public class AddressBookMain {
 
@@ -360,5 +363,42 @@ import java.util.*
 	                System.out.println("--------------------------------------------");
 	            }
 	        }
+	    }
+	    
+	    /*
+	     * Method writeFile writes into the file the contact details of the person
+	     * IO exceptions are handled.
+	     */
+	    public void writeFile(String file) 
+	    {
+	        try 
+	        {
+	            FileWriter writer = new FileWriter(file+".txt");
+	            for (int j=0;j<person1.size();j++)
+	            {
+	                AddressBookMain object=person1.get(j);
+	                writer.write("\nFirst Name:"+object.firstName+"\nLast Name:"+object.lastName+
+	                        "\nAddress:"+object.address+"\nCity:"+object.city+"\nState:"+object.state
+	                        +"\nPIN:"+object.pin+"\nContact number:"+object.phNumber+"\nEmail ID:"
+	                        +object.email+"\n");
+	            }
+	            writer.close();
+	        } 
+	        catch (IOException e) 
+	        {
+	            e.printStackTrace();
+	        }    
+	    }
+	    
+	    /*
+	     * Method readFile reads into the file the contact details of the person
+	     * IO exceptions are handled.
+	     */
+	    public void readFile(String file) throws IOException
+	    {
+	        FileReader fr =new FileReader(file+".txt");
+	              int i;
+	              while ((i=fr.read()) != -1)
+	                System.out.print((char) i);
 	    }
 }

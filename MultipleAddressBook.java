@@ -1,4 +1,5 @@
 package bridgelabzPractice;
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,7 +10,8 @@ public class MultipleAddressBook {
 	public static  int k = 0;//to iterate the program many times
 	public static Scanner sc = new Scanner(System.in);
 	
-	/*Method to perform different operations on contacts
+	/*
+	 * Method to perform different operations on contacts
 	 * @param 'choice' refers to user's input i.e.,the operations the user wants to perform on addressbook
 	 */
 	public static  void choiceOfUser(int choice, AddressBookMain person)
@@ -34,7 +36,7 @@ public class MultipleAddressBook {
 			}
 	}
 			
-			public static void main(String[] args) {
+			public static void main(String[] args) throws IOException {
 
 				Hashtable<String,AddressBookMain>  multipleAddressBook = new Hashtable<>();  //dictionary for mapping different address book with key 
 				AddressBookMain person = new AddressBookMain();	//first addressbook				
@@ -47,7 +49,8 @@ public class MultipleAddressBook {
 				{
 					System.out.println("Enter your choice:\n 1) Create New Address Book\n 2) Add Contact \n 3) Edit existing Contact\n "
 							+ "4) Delete contact\n 5) Display Address Book\n 6) Create Another AddressBook\n 7) Search a person based on City/State\n "
-							+ "8) View person by City\n 9) View person by State\n 10) Sort by Name, City, State or PIN Code\n 11) Exit"); //user selection
+							+ "8) View person by City\n 9) View person by State\n 10) Sort by Name, City, State or PIN Code\n 11)Add to file\n "
+							+ "12) Read from file\n 13) Exit"); //user selection
 					choice=sc.nextInt();
 					switch(choice)
 					{
@@ -123,7 +126,19 @@ public class MultipleAddressBook {
 			                }
 						break;
 					}
-					case 11: System.exit(0);
+					case 11:{
+						System.out.println("Enter the Address book which you want to add into file: ");
+		                String AddressBook=sc.next();
+		                multipleAddressBook.get(AddressBook).writeFile(AddressBook);
+						break;
+					}
+					case 12:{
+						System.out.println("Enter the Address book which you want to read from file: ");
+		                String AddressBook=sc.next();
+		                multipleAddressBook.get(AddressBook).readFile(AddressBook);
+						break;
+					}
+					case 13: System.exit(0);
 					default: System.out.println("Enter a Valid Option.");
 					}//end of switch
 				}// end of while
